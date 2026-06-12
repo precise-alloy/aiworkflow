@@ -34,8 +34,7 @@ This skill operates as **ARCHITECT** role within the `.ai/` workflow.
    proceeding to full analysis.
 5. After producing or updating the review document, triage per `.ai/workflows/generate-tasks.md` and generate task files
    in `.ai/tasks/{branch-slug}/`.
-6. When generating task files, check `.ai/tasks/` for existing files matching this ticket — do NOT create duplicates (
-   update them instead).
+6. When generating task files, check `.ai/tasks/` for existing files matching this ticket — do NOT create duplicates (update them instead).
 
 ### Triage output:
 

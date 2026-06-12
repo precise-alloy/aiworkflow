@@ -110,17 +110,18 @@ Types: `feat` | `fix` | `refactor` | `test` | `docs` | `chore`
 
 ## File merge strategy (when adopting into existing project)
 
-| File/folder                     | On adopt                         |
-|---------------------------------|----------------------------------|
-| `.github/agents/ai-workflow.md` | Merge — keep project constraints |
-| `.ai/workflows/*.md`            | Replace                          |
-| `.ai/routing.md`                | Replace                          |
-| `.ai/SKILLS-TODO.md`            | Generate fresh                   |
-| `.ai/skills/*.md`               | Append only — never overwrite    |
-| `.ai/tasks/**`                  | Never touch                      |
-| `.ai/memory/**`                 | Never touch                      |
-| `docs/**`                       | Never touch                      |
-| `.ai/module-map.md`             | Never touch                      |
+| File/folder          | On adopt                                                                   |
+|----------------------|----------------------------------------------------------------------------|
+| `.ai/AGENTS.md`      | Workflow-only source of truth — Never touch                                |
+| `.ai/profiles/*.md`  | Merge filled values, including project constraints and runtime/team config |
+| `.ai/workflows/*.md` | Replace                                                                    |
+| `.ai/routing.md`     | Replace                                                                    |
+| `.ai/SKILLS-TODO.md` | Generate fresh                                                             |
+| `.ai/skills/*.md`    | Append only — never overwrite                                              |
+| `.ai/tasks/**`       | Never touch                                                                |
+| `.ai/memory/**`      | Never touch                                                                |
+| `docs/**`            | Never touch                                                                |
+| `.ai/module-map.md`  | Never touch                                                                |
 
 ---
 

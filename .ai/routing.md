@@ -123,18 +123,19 @@ Human: "setup ai workflow"
 
 ## File merge strategy (existing projects)
 
-| File/folder           | On adopt                                                        |
-|-----------------------|-----------------------------------------------------------------|
-| `.ai/AGENTS.md`       | Source of truth — merge filled values, keep project constraints |
-| `.ai/exec-context.md` | Auto-generated — regenerate from AGENTS.md after merge          |
-| `.ai/workflows/*.md`  | Replace                                                         |
-| `.ai/routing.md`      | Replace                                                         |
-| `.ai/SKILLS-TODO.md`  | Generate fresh                                                  |
-| `.ai/skills/*.md`     | Append only                                                     |
-| `.ai/tasks/**`        | Never touch                                                     |
-| `.ai/memory/**`       | Never touch                                                     |
-| `docs/**`             | Never touch                                                     |
-| `.ai/module-map.md`   | Never touch                                                     |
+| File/folder           | On adopt                                                                   |
+|-----------------------|----------------------------------------------------------------------------|
+| `.ai/AGENTS.md`       | Workflow-only source of truth — Never touch                                |
+| `.ai/profiles/*.md`   | Merge filled values, including project constraints and runtime/team config |
+| `.ai/exec-context.md` | Auto-generated — regenerate from AGENTS.md + profiles after merge          |
+| `.ai/workflows/*.md`  | Replace                                                                    |
+| `.ai/routing.md`      | Replace                                                                    |
+| `.ai/SKILLS-TODO.md`  | Generate fresh                                                             |
+| `.ai/skills/*.md`     | Append only                                                                |
+| `.ai/tasks/**`        | Never touch                                                                |
+| `.ai/memory/**`       | Never touch                                                                |
+| `docs/**`             | Never touch                                                                |
+| `.ai/module-map.md`   | Never touch                                                                |
 
 ---
 

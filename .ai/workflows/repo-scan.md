@@ -160,7 +160,7 @@ Apply per `routing.md` merge strategy:
 |-----------------------|------------------------------------------------------------------------------------------|
 | `.ai/AGENTS.md`       | Merge workflow rule changes only — project constraints move to `.ai/profiles/project.md` |
 | `.ai/profiles/*.md`   | Merge filled project/team/runtime values — preserve existing project constraints         |
-| `.ai/exec-context.md` | Regenerate from filled AGENTS.md (Step 5)                                                |
+| `.ai/exec-context.md` | Regenerate from filled `.ai/profiles/project.md` (Step 5)                                |
 | `.ai/workflows/*.md`  | Replace with new versions                                                                |
 | `.ai/routing.md`      | Replace                                                                                  |
 | `.ai/SKILLS-TODO.md`  | Generate fresh from Step 1 results                                                       |
@@ -198,7 +198,7 @@ After completing all steps, output:
 ### .ai/exec-context.md generated
 ✅ Auth values propagated from project profile
 ✅ Error handling propagated from project profile
-✅ Build commands propagated from AGENTS.md
+✅ Build commands propagated from project profile
 
 ### Files preserved (not touched)
 - .ai/tasks/** — N task files

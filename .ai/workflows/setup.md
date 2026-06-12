@@ -360,13 +360,6 @@ Fill these tokens:
 - `{{AI_TOOLS}}`
 - `{{MODEL_ROUTING}}` — paste the correct table from §Model routing table above
 
-Leave these for repo-scan or first work session:
-
-- `{{REMOTE_API_HELPER_COMMAND}}`
-- `{{REMOTE_API_ENV_CHECK_COMMAND}}`
-- `{{REMOTE_API_REQUIRED_ENV_VARS}}`
-- `{{REMOTE_API_SUPPORTED_SYSTEMS}}`
-
 ### 5. Root `AGENTS.md` — thin pointer
 
 Write exactly:
@@ -394,7 +387,7 @@ Do not copy: triage, team config, model routing, branch conventions, pre-coding 
 SKILLS-TODO.md discipline, memory expiry.
 
 The static sections (role statement, golden rules, standards table, skills maintenance, output format) come from the
-exec-context.md template — do not regenerate from AGENTS.md.
+exec-context.md template — do not regenerate them from `.ai/AGENTS.md` or `.ai/profiles/*.md`.
 
 ### 8. `.ai/routing.md`
 
