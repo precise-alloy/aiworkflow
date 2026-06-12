@@ -160,12 +160,6 @@ See `.ai/profiles/team.md` sections `## Branch conventions`, `## tasks/ path con
 
 ---
 
-## Prompt caching strategy
-
-See `.ai/profiles/runtime.md` section `## Prompt caching strategy`.
-
----
-
 ## Standards
 
 Load relevant standards before implementation. Match to task type — not all for every task.
