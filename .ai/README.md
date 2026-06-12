@@ -7,6 +7,7 @@ Developer guide for this project's AI-assisted development workflow.
 ```text
 .github/agents/ai-workflow.md          ← rules for all AI agents (repo root — auto-loaded)
 .ai/
+  profiles/        ← project/team/runtime config for this project
   SKILLS-TODO.md   ← tech stack registry, fill during work
   module-map.md    ← module name mappings
   routing.md       ← flow, roles, executor guide
@@ -29,17 +30,17 @@ docs/
 **New project:**
 
 ```text
-Tell Claude: "Setup AI workflow for new project"
-→ Claude generates skeletons, SKILLS-TODO.md all ❓
-→ Begin work — Claude fills stack info progressively
+Tell your AI agent: "Setup AI workflow for new project"
+→ Agent generates skeletons, profiles, SKILLS-TODO.md all ❓
+→ Begin work — agent fills stack info progressively
 ```
 
 **Existing project:**
 
 ```text
-Tell Claude: "Setup AI workflow for existing project"
-→ Claude runs repo-scan → conflict check → you confirm
-→ Claude merges/replaces files, fills SKILLS-TODO from scan
+Tell your AI agent: "Setup AI workflow for existing project"
+→ Agent runs repo-scan → conflict check → you confirm
+→ Agent merges/replaces files, fills profiles and SKILLS-TODO from scan
 → Begin work
 ```
 
@@ -51,13 +52,13 @@ See root `README.md` for copy-paste setup templates with all required fields.
 
 ```text
 1. Write requirement
-   → Claude triages (TRIVIAL / SIMPLE / STANDARD / EPIC)
+   → Architect agent triages (TRIVIAL / SIMPLE / STANDARD / EPIC)
 
-   TRIVIAL:         Claude implements directly — no task file
-   SIMPLE:          Claude writes 2-section task note → paste into Codex
-   STANDARD / EPIC: Claude generates task files + execution plan
-                    → Paste Codex group → Codex panel
-                    → Paste Cline group → Cline terminal (if needed)
+   TRIVIAL:         Executor implements directly — no task file
+   SIMPLE:          Architect writes 2-section task note → send to configured executor
+   STANDARD / EPIC: Architect generates task files + execution plan
+                    → Run code-edit group with configured executor
+                    → Run shell group with configured shell runner (if needed)
 
 2. Review diff → commit using batch commit message → push
 ```
@@ -81,14 +82,13 @@ RELATED FILES: {optional}
 
 ## Executor guide
 
-| Triage level    | Action                                                           |
-|-----------------|------------------------------------------------------------------|
-| TRIVIAL         | Claude implements directly — no paste needed                     |
-| SIMPLE          | Paste 2-section task note into Codex                             |
-| STANDARD / EPIC | Paste full task file into Codex (code edits), then Cline (shell) |
+| Triage level    | Action                                                              |
+|-----------------|---------------------------------------------------------------------|
+| TRIVIAL         | Executor implements directly — no paste needed                      |
+| SIMPLE          | Send 2-section task note to configured executor                     |
+| STANDARD / EPIC | Send full task file to configured code-edit tool, then shell runner |
 
-Codex quota exhausted: paste same task file into Cline instead.
-Codex groups always first. Cline (shell) tasks always last.
+Configured executor and shell runner live in `.ai/profiles/runtime.md` section `## AI tools in use`.
 
 ---
 
@@ -124,15 +124,15 @@ Types: `feat` | `fix` | `refactor` | `test` | `docs` | `chore`
 
 ---
 
-## When Claude hits a ❓ in SKILLS-TODO.md
+## When an agent hits a ❓ in SKILLS-TODO.md
 
-Claude stops, asks once, fills the row, updates `.github/agents/ai-workflow.md   `, continues.
+The agent stops, asks once, fills the row, updates the relevant `.ai/profiles/` or workflow file, then continues.
 
 ---
 
 ## Memory files
 
-Check header before Claude uses one:
+Check header before an agent uses one:
 
 ```text
 Auto-expire: YYYY-MM-DD
