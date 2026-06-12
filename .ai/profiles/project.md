@@ -31,7 +31,7 @@
 
 ## Documentation layout
 
-<!-- Filled by setup or repo-scan. -->
+<!-- Filled during setup or project adoption. (Repo-scan does not infer documentation layout.) -->
 
 | Purpose        | Path                          |
 |----------------|-------------------------------|

@@ -6,8 +6,10 @@ argument-hint: 'Provide the Jira ticket URL(s) and any additional context'
 
 # Ticket Review & Execution Planning
 
-Analyze Jira tickets, understand requirements, inspect the codebase, and produce a detailed execution plan saved to
-`docs/src/tickets/<ticket-id>-review.md`.
+Analyze Jira tickets, understand requirements, inspect the codebase, and produce a detailed execution plan saved under
+the
+project’s ticket review docs path from `.ai/profiles/project.md` section `## Documentation layout` (e.g.
+`<ticket-reviews-path>/<ticket-id>-review.md`).
 
 ## ⛔ MANDATORY: Remote API access
 
@@ -34,7 +36,8 @@ This skill operates as **ARCHITECT** role within the `.ai/` workflow.
    proceeding to full analysis.
 5. After producing or updating the review document, triage per `.ai/workflows/generate-tasks.md` and generate task files
    in `.ai/tasks/{branch-slug}/`.
-6. When generating task files, check `.ai/tasks/` for existing files matching this ticket — do NOT create duplicates (update them instead).
+6. When generating task files, check `.ai/tasks/` for existing files matching this ticket — do NOT create duplicates (
+   update them instead).
 
 ### Triage output:
 
@@ -128,7 +131,7 @@ Parse ticket keys according to `.ai/profiles/team.md` section `## Team config` t
 Fetch each ticket:
 
 ```bash
-bun run scripts/remote-api.ts jira issue "<TICKET_KEY_OR_URL>" "summary,description,status,issuetype,comment,acceptance_criteria"
+bun run .github/scripts/remote-api.ts jira issue "<TICKET_KEY_OR_URL>" "summary,description,status,issuetype,comment,acceptance_criteria"
 ```
 
 Fetch all comments separately:

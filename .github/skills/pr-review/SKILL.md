@@ -87,7 +87,7 @@ Parse the PR URL using `.ai/profiles/runtime.md` section `## Remote API access` 
 Fetch the PR details:
 
 ```bash
-bun run scripts/remote-api.ts ado pr "<AZURE_DEVOPS_PR_URL>"
+bun run .github/scripts/remote-api.ts ado pr "<AZURE_DEVOPS_PR_URL>"
 ```
 
 If this helper returns `401` or `403`, or returns `404` with a permission-style message, stop and ask the user to verify
@@ -190,7 +190,7 @@ Parse ticket keys according to `.ai/profiles/team.md` section `## Team config` t
 Fetch each ticket:
 
 ```bash
-bun run scripts/remote-api.ts jira issue "<TICKET_KEY_OR_URL>" "summary,description,status,issuetype,comment"
+bun run .github/scripts/remote-api.ts jira issue "<TICKET_KEY_OR_URL>" "summary,description,status,issuetype,comment"
 ```
 
 Fetch and read comments according to `.ai/profiles/project.md` section `## Requirement source precedence`.
@@ -198,7 +198,7 @@ Fetch and read comments according to `.ai/profiles/project.md` section `## Requi
 To fetch comments separately if needed:
 
 ```bash
-bun run scripts/remote-api.ts jira comments "<TICKET_KEY_OR_URL>"
+bun run .github/scripts/remote-api.ts jira comments "<TICKET_KEY_OR_URL>"
 ```
 
 If either Jira request returns `401` or `403`, or returns `404` with

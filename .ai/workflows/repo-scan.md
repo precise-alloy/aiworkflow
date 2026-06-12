@@ -12,9 +12,8 @@ Run this workflow when:
 
 ## Purpose
 
-Populate all `[fill after repo-scan]` placeholders in `.ai/profiles/project.md` and `SKILLS-TODO.md`
-without reading the entire codebase. Targeted detection only.
-
+Populate repo-scan-owned sections and `{{...}}` tokens in `.ai/profiles/project.md` and
+`SKILLS-TODO.md` without reading the entire codebase. Targeted detection only.
 ---
 
 ## Behavior rules
@@ -103,7 +102,7 @@ After Steps 2–4 have filled auth, error handling, and build commands into `.ai
    - {{BUILD_CMD}}, {{TYPECHECK_CMD}}, {{TEST_CMD}}, {{LINT_CMD}}
    - {{PROJECT_NAME}}
 3. Do NOT copy: triage, team config, model routing, branch conventions, pre-coding read order, SKILLS-TODO.md discipline, memory expiry
-4. Static sections stay as written in the template — do not overwrite from AGENTS.md
+4. Static sections stay as written in the template — only fill the copied token values
 5. Write the filled exec-context.md
 ```
 

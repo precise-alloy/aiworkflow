@@ -2,7 +2,7 @@
 
 # Map human phrases → kebab-case module names
 
-# Module name = folder under .ai/tasks/<module>/ and .ai/skills/<module>.md
+# Module name = identifier used for `.ai/skills/<module>.md` (task directories follow `.ai/profiles/team.md`)
 
 # Fill during repo-scan or as modules are discovered during work.
 

@@ -14,7 +14,7 @@
 
 ## Remote API access
 
-Every Jira and Azure DevOps REST call MUST go through `scripts/remote-api.ts` via `bun run`. No exceptions. Do not use
+Every Jira and Azure DevOps REST call MUST go through `.github/scripts/remote-api.ts` via `bun run`. No exceptions. Do not use
 `Invoke-WebRequest`, `curl`, `fetch`, `requests`, GitHub/Azure DevOps MCP tools, or hand-rolled auth headers for these
 systems. The helper loads `.env.local`, applies the correct Basic auth format for each system, and preserves HTTP status
 on failure.
@@ -28,16 +28,16 @@ bun --version
 If Bun is not installed or the command is unavailable, stop immediately and ask the user to install Bun. Do not continue
 remote analysis or review with another runtime or ad-hoc HTTP calls.
 
-If the command you need is not listed, run `bun run scripts/remote-api.ts` with no arguments to print the current
+If the command you need is not listed, run `bun run .github/scripts/remote-api.ts` with no arguments to print the current
 subcommand list:
 
 ```bash
-bun run scripts/remote-api.ts                                        # print usage
-bun run scripts/remote-api.ts check-env                              # verify .env.local + required keys
-bun run scripts/remote-api.ts jira issue <KEY_OR_URL> [fields]       # single ticket
-bun run scripts/remote-api.ts jira comments <KEY_OR_URL>             # all comments
-bun run scripts/remote-api.ts jira changelog <KEY_OR_URL>            # change history
-bun run scripts/remote-api.ts ado pr <PR_URL>                        # PR metadata
+bun run .github/scripts/remote-api.ts                                        # print usage
+bun run .github/scripts/remote-api.ts check-env                              # verify .env.local + required keys
+bun run .github/scripts/remote-api.ts jira issue <KEY_OR_URL> [fields]       # single ticket
+bun run .github/scripts/remote-api.ts jira comments <KEY_OR_URL>             # all comments
+bun run .github/scripts/remote-api.ts jira changelog <KEY_OR_URL>            # change history
+bun run .github/scripts/remote-api.ts ado pr <PR_URL>                        # PR metadata
 ```
 
 ### Azure DevOps PR URL parsing
@@ -68,7 +68,7 @@ PR ID: 1234
 Then fetch PR metadata through the helper:
 
 ```bash
-bun run scripts/remote-api.ts ado pr "<PR_URL>"
+bun run .github/scripts/remote-api.ts ado pr "<PR_URL>"
 ```
 
 If a needed call is missing from the helper, stop and ask the user before falling back to anything else. Extending the
@@ -93,7 +93,7 @@ Before fetching remote data, always run the sanctioned env check via Bun. Do not
 `cat .env.local`, or any other ad-hoc check.
 
 ```bash
-bun run scripts/remote-api.ts check-env
+bun run .github/scripts/remote-api.ts check-env
 ```
 
 Interpret the result:

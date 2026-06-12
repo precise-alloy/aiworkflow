@@ -5,8 +5,9 @@ Developer guide for this project's AI-assisted development workflow.
 ## Structure
 
 ```text
-.github/agents/ai-workflow.md          ← rules for all AI agents (repo root — auto-loaded)
+AGENTS.md          ← thin pointer to .ai/AGENTS.md (workflow rules entry point)
 .ai/
+  AGENTS.md        ← workflow rules, triage guidelines, role detection, and other global rules
   profiles/        ← project/team/runtime config for this project
   SKILLS-TODO.md   ← tech stack registry, fill during work
   module-map.md    ← module name mappings
@@ -38,7 +39,7 @@ Tell your AI agent: "Setup AI workflow for new project"
 **Existing project:**
 
 ```text
-Tell your AI agent: "Setup AI workflow for existing project"
+Tell your AI agent: "setup ai workflow" → then "run repo-scan"
 → Agent runs repo-scan → conflict check → you confirm
 → Agent merges/replaces files, fills profiles and SKILLS-TODO from scan
 → Begin work
@@ -112,7 +113,7 @@ Types: `feat` | `fix` | `refactor` | `test` | `docs` | `chore`
 
 | File/folder          | On adopt                                                                   |
 |----------------------|----------------------------------------------------------------------------|
-| `.ai/AGENTS.md`      | Workflow-only source of truth — Never touch                                |
+| `.ai/AGENTS.md`      | Workflow-only source of truth — Never touch                                           |
 | `.ai/profiles/*.md`  | Merge filled values, including project constraints and runtime/team config |
 | `.ai/workflows/*.md` | Replace                                                                    |
 | `.ai/routing.md`     | Replace                                                                    |

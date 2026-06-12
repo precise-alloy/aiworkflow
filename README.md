@@ -9,10 +9,10 @@ standards enforcement, and doc discipline. Works with any language, stack, or te
 
 Two paths — pick one.
 
-| Situation                | Do this                                                                                |
-|--------------------------|----------------------------------------------------------------------------------------|
-| New project (empty repo) | Copy `.ai/` folder into repo root → say `"setup ai workflow"`                          |
-| Existing codebase        | Copy `.ai/` folder into repo root → say `"setup ai workflow"` → then `"run repo-scan"` |
+| Situation                | Do this                                                                                            |
+|--------------------------|----------------------------------------------------------------------------------------------------|
+| New project (empty repo) | Copy `.ai/` and `.github/` folders into repo root → say "setup ai workflow"                        |
+| Existing codebase        | Copy `.ai/` and `.github/` folders into repo root → say "setup ai workflow" → then "run repo-scan" |
 
 That's it. The AI agent runs an interactive setup interview — no templates to paste.
 
@@ -29,7 +29,7 @@ The AI agent asks one question at a time. Have these ready before starting:
 | Q3  | Team size                    | `solo` / `small` / `medium` / `large` — drives tasks/ naming and memory expiry |
 | Q4  | Primary language + framework | e.g. `TypeScript + Next.js`, `Python + FastAPI`                                |
 | Q5  | Git platform                 | `GitHub` / `GitLab` / `Azure DevOps` / other — skipped if solo                 |
-| Q6  | Git workflow                 | `PR-based` / `trunk-based` / `git-flow`                                        |
+| Q6  | Git workflow                 | `PR-based` / `trunk-based` / `gitflow`                                         |
 | Q7  | AI tools in use              | `Claude Code` / `Cursor` / `Codex` / `Cline` / other                           |
 | Q8  | Model cost preference        | `cost-first` / `balanced` (default) / `quality-first`                          |
 | Q9  | Ticket format                | e.g. `PROJ-123` / `#123` / `none` — skipped if solo                            |
@@ -42,18 +42,18 @@ The AI agent asks one question at a time. Have these ready before starting:
 
 After the interview, the AI agent writes these files automatically:
 
-| File                      | What it contains                                                                                                   |
-|---------------------------|--------------------------------------------------------------------------------------------------------------------|
-| `.ai/AGENTS.md`           | **Workflow source of truth** — role detection, triage, read order, golden rules, standards, output format          |
+| File                      | What it contains                                                                                                     |
+|---------------------------|----------------------------------------------------------------------------------------------------------------------|
+| `.ai/AGENTS.md`           | **Workflow source of truth** — role detection, triage, read order, golden rules, standards, output format            |
 | `.ai/profiles/project.md` | Project-specific technical facts — language, source layout, auth/error/testing patterns, build commands, constraints |
-| `.ai/profiles/team.md`    | Team process config — ticket format, branch/PR conventions, QA mode, traceability policy, review defaults          |
-| `.ai/profiles/runtime.md` | Runtime config — AI tools, model routing, mandatory Bun remote API helper rules                      |
-| `.ai/exec-context.md`     | Auto-generated executor context — thin subset generated from project profile + reusable executor rules             |
-| `.ai/routing.md`          | Role detection flow, context-by-role map, runtime profile pointer                                                  |
-| `.ai/SKILLS-TODO.md`      | Tech stack registry — language + framework pre-filled, rest as ❓                                                   |
-| `docs/ARCHITECTURE.md`    | Header filled — rest populated progressively during work                                                           |
-| `AGENTS.md` (root)        | Thin pointer → `.ai/AGENTS.md`                                                                                     |
-| `.claude/CLAUDE.md`       | Bootstrap pointer + setup/repo-scan triggers                                                                       |
+| `.ai/profiles/team.md`    | Team process config — ticket format, branch/PR conventions, QA mode, traceability policy, review defaults            |
+| `.ai/profiles/runtime.md` | Runtime config — AI tools, model routing, mandatory Bun remote API helper rules                                      |
+| `.ai/exec-context.md`     | Auto-generated executor context — thin subset generated from project profile + reusable executor rules               |
+| `.ai/routing.md`          | Role detection flow, context-by-role map, runtime profile pointer                                                    |
+| `.ai/SKILLS-TODO.md`      | Tech stack registry — language + framework pre-filled, rest as ❓                                                     |
+| `docs/ARCHITECTURE.md`    | Header filled — rest populated progressively during work                                                             |
+| `AGENTS.md` (root)        | Thin pointer → `.ai/AGENTS.md`                                                                                       |
+| `.claude/CLAUDE.md`       | Bootstrap pointer + setup/repo-scan triggers                                                                         |
 
 **Filled later by repo-scan or first work session:**
 
@@ -137,7 +137,7 @@ This workflow includes two repository skills under `.github/skills/`:
 | `pr-review`     | Reviewing remote PRs or local pre-PR changes against ticket requirements and task DONE WHEN gates    | `.ai/profiles/project.md`, `.ai/profiles/team.md`, `.ai/profiles/runtime.md`, `.ai/standards/stakeholders.md` |
 
 Both skills use `.ai/profiles/runtime.md` section `## Remote API access` for Jira/Azure DevOps access. Bun and
-`scripts/remote-api.ts` are mandatory for those remote calls.
+`.github/scripts/remote-api.ts` are mandatory for those remote calls.
 
 ---
 
@@ -194,7 +194,7 @@ docs/
 
 | File / folder         | On adopt                                                                  |
 |-----------------------|---------------------------------------------------------------------------|
-| `.ai/AGENTS.md`       | Workflow source of truth — merge workflow rule changes only               |
+| `.ai/AGENTS.md`       | Workflow-only source of truth — Never touch                               |
 | `.ai/profiles/*.md`   | Merge project/team/runtime values — keep existing project constraints     |
 | `.ai/exec-context.md` | Regenerate from filled `.ai/profiles/project.md` after merge              |
 | `AGENTS.md` (root)    | Overwrite with thin pointer after extracting any project-specific rules   |
@@ -234,11 +234,11 @@ docs/
 
 ### `.ai/profiles/runtime.md` — fill during setup or tool changes
 
-| Section                      | When to fill                                                                                  |
-|------------------------------|-----------------------------------------------------------------------------------------------|
-| `## AI tools in use`         | During setup interview or when tools change                                                   |
-| `## Model routing`           | During setup interview or when model budget changes                                           |
-| `## Remote API access`       | When Jira/Azure DevOps remote access is needed; Bun and `scripts/remote-api.ts` are mandatory |
+| Section                | When to fill                                                                                          |
+|------------------------|-------------------------------------------------------------------------------------------------------|
+| `## AI tools in use`   | During setup interview or when tools change                                                           |
+| `## Model routing`     | During setup interview or when model budget changes                                                   |
+| `## Remote API access` | When Jira/Azure DevOps remote access is needed; Bun and `.github/scripts/remote-api.ts` are mandatory |
 
 ### `docs/ARCHITECTURE.md` — fill progressively
 
@@ -284,17 +284,17 @@ changes.
 
 ## Key resources
 
-| Resource                                                                       | Purpose                                                            |
-|--------------------------------------------------------------------------------|--------------------------------------------------------------------|
-| [.ai/AGENTS.md](.ai/AGENTS.md)                                                 | Workflow rules, triage, read order, standards, output format       |
+| Resource                                                                       | Purpose                                                              |
+|--------------------------------------------------------------------------------|----------------------------------------------------------------------|
+| [.ai/AGENTS.md](.ai/AGENTS.md)                                                 | Workflow rules, triage, read order, standards, output format         |
 | [.ai/profiles/project.md](.ai/profiles/project.md)                             | Project-specific technical facts, auth/error/testing, build commands |
-| [.ai/profiles/team.md](.ai/profiles/team.md)                                   | Team process, branch/PR, QA, traceability, review defaults         |
-| [.ai/profiles/runtime.md](.ai/profiles/runtime.md)                             | AI tools, model routing, remote API helper rules     |
-| [.ai/routing.md](.ai/routing.md)                                               | Role detection, context-by-role map, executor guide                |
-| [.ai/exec-context.md](.ai/exec-context.md)                                     | Executor context generated from project profile + reusable rules   |
-| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)                                   | System architecture, runbook patterns                              |
-| [docs/CUTOFF.md](docs/CUTOFF.md)                                               | What is documented vs what exists only in code                     |
-| [.ai/standards/](.ai/standards/)                                               | Code conventions, security, testing, UI, definition of done        |
-| [.github/skills/ticket-review/SKILL.md](.github/skills/ticket-review/SKILL.md) | Ticket analysis, review docs, and task planning                    |
-| [.github/skills/pr-review/SKILL.md](.github/skills/pr-review/SKILL.md)         | PR/local-diff review against ticket requirements                   |
-| [docs/qa/](docs/qa/)                                                           | EPIC QA summaries for testers                                      |
+| [.ai/profiles/team.md](.ai/profiles/team.md)                                   | Team process, branch/PR, QA, traceability, review defaults           |
+| [.ai/profiles/runtime.md](.ai/profiles/runtime.md)                             | AI tools, model routing, remote API helper rules                     |
+| [.ai/routing.md](.ai/routing.md)                                               | Role detection, context-by-role map, executor guide                  |
+| [.ai/exec-context.md](.ai/exec-context.md)                                     | Executor context generated from project profile + reusable rules     |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)                                   | System architecture, runbook patterns                                |
+| [docs/CUTOFF.md](docs/CUTOFF.md)                                               | What is documented vs what exists only in code                       |
+| [.ai/standards/](.ai/standards/)                                               | Code conventions, security, testing, UI, definition of done          |
+| [.github/skills/ticket-review/SKILL.md](.github/skills/ticket-review/SKILL.md) | Ticket analysis, review docs, and task planning                      |
+| [.github/skills/pr-review/SKILL.md](.github/skills/pr-review/SKILL.md)         | PR/local-diff review against ticket requirements                     |
+| [docs/qa/](docs/qa/)                                                           | EPIC QA summaries for testers                                        |
