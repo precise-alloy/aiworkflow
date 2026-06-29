@@ -1,6 +1,6 @@
 {
   "name": "ritus",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A generic, project-agnostic AI-assisted development workflow. Covers role detection, triage, task generation, execution, standards enforcement, and doc discipline. Works with any language, stack, or team size.",
   "directories": {
     ".ai": ".ai",
