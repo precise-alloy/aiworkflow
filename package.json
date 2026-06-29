@@ -1,7 +1,11 @@
 {
   "name": "ritus",
-  "version": "1.0.1",
+  "version": "1.0.2",
+  "private": false,
   "description": "A generic, project-agnostic AI-assisted development workflow. Covers role detection, triage, task generation, execution, standards enforcement, and doc discipline. Works with any language, stack, or team size.",
+  "repository": {
+    "url": "https://github.com/precise-alloy/ritus.git"
+  },
   "directories": {
     ".ai": ".ai",
     ".claude": ".claude",
