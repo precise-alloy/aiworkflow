@@ -74,6 +74,10 @@ async function runCheckEnv(): Promise<void> {
       for (const key of provider.requiredEnvKeys) {
         console.error(`  ${key}=`);
       }
+      if (provider.name === 'github') {
+        console.error('  # Optional: alternative token name used by GitHub CLI');
+        console.error('  GH_TOKEN=');
+      }
       console.error('');
     }
     process.exit(1);
