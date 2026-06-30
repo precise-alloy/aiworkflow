@@ -16,7 +16,17 @@ function getGitHubToken(): string {
 }
 
 function parseGitHubPrUrl(prUrl: string): GitHubPullRequestRef {
-  const match = prUrl.match(/github\.com\/([^/]+)\/([^/]+)\/pull\/(\d+)/);
+  let parsed: URL;
+  try {
+    parsed = new URL(prUrl);
+  } catch {
+    throw new Error(`Invalid GitHub PR URL: ${prUrl}`);
+  }
+  if (parsed.hostname !== 'github.com') {
+    throw new Error(`Unsupported GitHub host: ${parsed.hostname}`);
+  }
+  const match = parsed.pathname.match(/^\/([^/]+)\/([^/]+)\/pull\/(\d+)\/?$/);
+
   if (!match) {
     throw new Error(`Could not parse a GitHub PR URL from: ${prUrl}`);
   }

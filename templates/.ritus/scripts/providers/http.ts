@@ -1,3 +1,4 @@
+import { Buffer } from 'node:buffer';
 import type { HttpError, RequestHeaders } from './types.ts';
 
 export const REQUEST_TIMEOUT_MS = 30_000;
