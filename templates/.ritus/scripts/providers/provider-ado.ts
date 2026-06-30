@@ -83,8 +83,8 @@ function parseAzureDevOpsPrUrl(prUrl: string): AzureDevOpsPullRequestRef {
 
 function parseAdoWorkItemUrl(urlOrId: string): AdoWorkItemRef {
   if (/^\d+$/.test(urlOrId)) {
-    const org = process.env.AZURE_DEVOPS_ORG;
-    const project = process.env.AZURE_DEVOPS_PROJECT;
+    const org = process.env.AZURE_DEVOPS_ORG?.trim();
+    const project = process.env.AZURE_DEVOPS_PROJECT?.trim();
     if (!org || !project) {
       throw new Error(
         `Bare work item ID "${urlOrId}" requires AZURE_DEVOPS_ORG and AZURE_DEVOPS_PROJECT in .env.local. ` +

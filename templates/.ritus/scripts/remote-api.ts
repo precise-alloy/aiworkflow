@@ -19,7 +19,6 @@ function printUsage(): void {
 ${usageLines.map((l) => '  ' + l).join('\n')}
 
 Examples:
-  bun run .ritus/scripts/remote-api.ts check-env
 ${exampleLines.map((l) => '  ' + l).join('\n')}`);
 }
 

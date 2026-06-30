@@ -114,7 +114,7 @@ function check() {
     return;
   }
 
-  console.log("ritus: " + missing.length + " file(s) missing. Run '/setup' or '/sync' to create them.");
+  console.log("ritus: " + missing.length + " file(s) missing. Re-run this script with --apply to create them.");
   for (const f of missing) console.log("  + " + f);
 }
 
