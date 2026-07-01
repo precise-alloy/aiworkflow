@@ -256,10 +256,6 @@ If `{{TICKET_FORMAT}}` is set: `feat/PROJ-123-{slug}` or `feat/#123-{slug}`.
 3. Write a one-line summary to `docs/CHANGELOG.md`
 4. Delete the memory file
 
-### Default base branch → `{{DEFAULT_BASE_BRANCH}}`
-
-Value from Q7. Default: `main` (or `develop` if `{{GIT_FLOW}}` is `gitflow`).
-
 ### Traceability policy → `{{TRACEABILITY_POLICY}}`
 
 | `{{TEAM_SIZE}}` | Policy |

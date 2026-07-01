@@ -5,7 +5,7 @@ description: Use when starting any conversation — establishes skill routing an
 
 > **Subagent guard:** If you were dispatched as a subagent to execute a specific task (verify-task, pr-review, or execute-task), skip this skill entirely.
 > Run only the skill you were dispatched to execute.
-
+>
 > **Mandatory skill check:** Before responding to any task — including clarifying questions — check whether an available skill applies. If a skill covers your task, you **must** invoke it via the Skill tool. Do not skip this check. This is not optional.
 
 # Ritus
