@@ -13,12 +13,12 @@ chain-based routing, and independent verification. Works with Claude Code, GitHu
 AI Agent Workflow = Primary rules + Core workflow + Project profile + Runtime context
 ```
 
-| Layer | File(s) | What it does |
-|-------|---------|-------------|
-| Primary rules | CLAUDE.md / copilot-instructions.md | User's behavioral directives — highest authority |
-| Core workflow | Skills (via plugin) | On-demand skills with subagent dispatch instructions |
-| Project profile | `docs/profiles/*.yml` → `docs/PROJECT_CONTEXT.md` | Project facts rendered from YAML data |
-| Runtime context | Current task file + active skill | What to work on now |
+| Layer           | File(s)                                           | What it does                                         |
+|-----------------|---------------------------------------------------|------------------------------------------------------|
+| Primary rules   | CLAUDE.md / copilot-instructions.md               | User's behavioral directives — highest authority     |
+| Core workflow   | Skills (via plugin)                               | On-demand skills with subagent dispatch instructions |
+| Project profile | `docs/profiles/*.yml` → `docs/PROJECT_CONTEXT.md` | Project facts rendered from YAML data                |
+| Runtime context | Current task file + active skill                  | What to work on now                                  |
 
 ---
 
@@ -63,6 +63,19 @@ or just
 The setup skill automatically scaffolds all project files (`docs/`, `.ritus/`, `.env.local`) and runs a
 10-question interview to fill your project profiles.
 
+## What gets installed
+
+The `/sync` skill copies template files into your project. Files are never overwritten once they exist.
+
+| Strategy             | Behavior                                    | Files                                                                                                                                                                                                                                               |
+|----------------------|---------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **user-owned**       | Created once, you own it — edit freely      | `docs/profiles/project.yml`, `team.yml`, `runtime.yml`, `docs/PROJECT_CONTEXT.md`, `docs/ARCHITECTURE.md`, `docs/CODE_CONVENTIONS.md`, `docs/TEST_CONVENTIONS.md`, `docs/DECISIONS.md`, `docs/LESSONS.md`, `docs/CUTOFF.md`, `docs/STAKEHOLDERS.md` |
+| **append-only**      | Created once, only appended to              | `docs/CHANGELOG.md`                                                                                                                                                                                                                                 |
+| **scaffold**         | Directory placeholder                       | `docs/tasks/README.md`, `docs/memory/README.md`                                                                                                                                                                                                     |
+| **project-specific** | Created once, you own it — extend as needed | `.ritus/scripts/remote-api.ts`, `.ritus/scripts/providers/*`, `.ritus/scripts/tsconfig.json`, `.env.example`                                                                                                                                        |
+
+Run `/sync check missing` to see what's missing, or `/sync create missing` to create missing files.
+
 For existing codebases, follow up with:
 
 ```text
@@ -80,19 +93,19 @@ missing project files. Run the setup again to create any new files. Existing use
 
 **By plugin (workflow-owned):**
 
-| Component | What it contains |
-|-----------|-----------------|
+| Component | What it contains                                                                            |
+|-----------|---------------------------------------------------------------------------------------------|
 | 16 skills | On-demand workflow and standard skills (includes `start-ritus` meta-skill for auto-routing) |
 
 **By setup / repo-scan (user-owned in target project):**
 
-| File | What it contains |
-|------|-----------------|
-| `docs/PROJECT_CONTEXT.md` | Always-on project facts (rendered from profiles) |
-| `docs/profiles/*.yml` | Source of truth — project, team, runtime data |
-| `docs/ARCHITECTURE.md` | System architecture (header filled, rest progressive) |
+| File                       | What it contains                                          |
+|----------------------------|-----------------------------------------------------------|
+| `docs/PROJECT_CONTEXT.md`  | Always-on project facts (rendered from profiles)          |
+| `docs/profiles/*.yml`      | Source of truth — project, team, runtime data             |
+| `docs/ARCHITECTURE.md`     | System architecture (header filled, rest progressive)     |
 | `docs/CODE_CONVENTIONS.md` | Project-specific coding conventions (filled by repo-scan) |
-| `docs/TEST_CONVENTIONS.md` | Project-specific test conventions (filled by repo-scan) |
+| `docs/TEST_CONVENTIONS.md` | Project-specific test conventions (filled by repo-scan)   |
 
 ---
 
@@ -104,29 +117,29 @@ in the `start-ritus` skill and in each skill's dispatch instructions section.
 
 ### Workflow skills
 
-| Skill | Purpose                                                                         |
-|-------|---------------------------------------------------------------------------------|
-| `start-ritus` | Entry-point meta-skill — golden rules, dispatch instructions, workflow tracking |
-| `brainstorm` | Explore unclear requirements — propose 2-3 approaches before triage             |
-| `triage` | Classify changes by blast radius, contract impact, validation clarity           |
+| Skill           | Purpose                                                                         |
+|-----------------|---------------------------------------------------------------------------------|
+| `start-ritus`   | Entry-point meta-skill — golden rules, dispatch instructions, workflow tracking |
+| `brainstorm`    | Explore unclear requirements — propose 2-3 approaches before triage             |
+| `triage`        | Classify changes by blast radius, contract impact, validation clarity           |
 | `ticket-review` | Analyze requirements (plain text or ticket) → produce task files                |
-| `execute-task` | Implement a task file — load context, implement steps, report                   |
-| `verify-task` | Independent per-task verification (dispatched as fresh haiku subagent)          |
-| `pr-review` | Adversarial review at ticket/PR level (dispatched as fresh sonnet subagent)     |
-| `debug` | Systematic 4-phase root cause investigation with evidence grading               |
-| `setup` | Setup interview — write YAML profiles, render docs/PROJECT_CONTEXT.md           |
-| `sync` | Scaffold or check project files — create missing docs, profiles, scripts        |
-| `repo-scan` | Detect stack, auth, build commands from existing codebase                       |
+| `execute-task`  | Implement a task file — load context, implement steps, report                   |
+| `verify-task`   | Independent per-task verification (dispatched as fresh haiku subagent)          |
+| `pr-review`     | Adversarial review at ticket/PR level (dispatched as fresh sonnet subagent)     |
+| `debug`         | Systematic 4-phase root cause investigation with evidence grading               |
+| `setup`         | Setup interview — write YAML profiles, render docs/PROJECT_CONTEXT.md           |
+| `sync`          | Scaffold or check project files — create missing docs, profiles, scripts        |
+| `repo-scan`     | Detect stack, auth, build commands from existing codebase                       |
 
 ### Standard skills (loaded alongside workflow skills when applicable)
 
-| Skill | Load when |
-|-------|----------|
-| `code-conventions` | Any code change |
-| `testing-policy` | New service, endpoint, worker, or bug fix |
-| `tdd` | New business logic or bug fix — enforces red-green-refactor |
-| `security` | Auth, billing, migrations, tenant isolation, infra, shared contracts |
-| `definition-of-done` | STANDARD or EPIC tasks |
+| Skill                | Load when                                                            |
+|----------------------|----------------------------------------------------------------------|
+| `code-conventions`   | Any code change                                                      |
+| `testing-policy`     | New service, endpoint, worker, or bug fix                            |
+| `tdd`                | New business logic or bug fix — enforces red-green-refactor          |
+| `security`           | Auth, billing, migrations, tenant isolation, infra, shared contracts |
+| `definition-of-done` | STANDARD or EPIC tasks                                               |
 
 ### Skill chains
 
@@ -231,12 +244,12 @@ docs/                            ← user-owned (scaffolded into target project)
 
 Edit the `.yml` file. The AI agent re-reads `docs/PROJECT_CONTEXT.md` on next session start.
 
-| YAML field | When to fill |
-|------------|-------------|
-| `project_constraints` | Add rules as discovered |
-| `authentication.*` | During repo-scan or first auth-touching task |
-| `error_handling` | During repo-scan |
-| `build_commands.*` | During repo-scan |
+| YAML field            | When to fill                                 |
+|-----------------------|----------------------------------------------|
+| `project_constraints` | Add rules as discovered                      |
+| `authentication.*`    | During repo-scan or first auth-touching task |
+| `error_handling`      | During repo-scan                             |
+| `build_commands.*`    | During repo-scan                             |
 
 ### `docs/CODE_CONVENTIONS.md` — fill by repo-scan, refine manually
 
@@ -248,11 +261,11 @@ Repo-scan detects test framework, naming, mocking strategy, fixtures, async patt
 
 ### `docs/ARCHITECTURE.md` — fill progressively
 
-| Section | When |
-|---------|------|
+| Section                    | When                                         |
+|----------------------------|----------------------------------------------|
 | Apps/services and purposes | During first EPIC or system overview session |
-| Key flows | Each time a major flow is built |
-| Runbook patterns | First time a pattern is used |
+| Key flows                  | Each time a major flow is built              |
+| Runbook patterns           | First time a pattern is used                 |
 
 ### `docs/DECISIONS.md` — record non-obvious decisions
 
@@ -276,12 +289,12 @@ Expiry days set by team size (solo=60, small=30, medium=21, large=14). Before de
 
 ## Key resources
 
-| Resource | Purpose |
-|----------|---------|
-| [docs/PROJECT_CONTEXT.md](docs/PROJECT_CONTEXT.md) | Always-on project facts |
-| [docs/profiles/](docs/profiles/) | YAML data files (source of truth) |
-| [docs/CODE_CONVENTIONS.md](docs/CODE_CONVENTIONS.md) | Project-specific coding conventions |
-| [docs/TEST_CONVENTIONS.md](docs/TEST_CONVENTIONS.md) | Project-specific test conventions |
-| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | System architecture |
-| [docs/DECISIONS.md](docs/DECISIONS.md) | Architecture decisions and rationale |
-| [docs/WORKFLOW_DIAGRAMS.md](docs/WORKFLOW_DIAGRAMS.md) | Visual workflow reference |
+| Resource                                               | Purpose                              |
+|--------------------------------------------------------|--------------------------------------|
+| [docs/PROJECT_CONTEXT.md](docs/PROJECT_CONTEXT.md)     | Always-on project facts              |
+| [docs/profiles/](docs/profiles/)                       | YAML data files (source of truth)    |
+| [docs/CODE_CONVENTIONS.md](docs/CODE_CONVENTIONS.md)   | Project-specific coding conventions  |
+| [docs/TEST_CONVENTIONS.md](docs/TEST_CONVENTIONS.md)   | Project-specific test conventions    |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)           | System architecture                  |
+| [docs/DECISIONS.md](docs/DECISIONS.md)                 | Architecture decisions and rationale |
+| [docs/WORKFLOW_DIAGRAMS.md](docs/WORKFLOW_DIAGRAMS.md) | Visual workflow reference            |
