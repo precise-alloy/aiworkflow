@@ -60,8 +60,8 @@ or just
 /setup
 ```
 
-The setup skill automatically scaffolds all project files (`docs/`, `.ritus/`, `.env.local`) and runs a
-10-question interview to fill your project profiles.
+The setup skill automatically scaffolds all project files (`docs/`, `.ritus/`, `.env.example`) and runs an
+11-question interview to fill your project profiles.
 
 ## What gets installed
 
