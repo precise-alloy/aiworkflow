@@ -75,7 +75,7 @@ checklists are additive — check all that apply to the current task.
 
 ## Quality thresholds (apply to new or substantially rewritten code only)
 
-- No single function with cyclomatic complexity > 10 without a comment
+- No single function with cyclomatic complexity > 10 without a comment (count independent branching paths: if/else, switch cases, loops, logical operators, ternaries, catch blocks)
 - No function > 60 lines without structural justification
 - No file > 400 lines — split at module boundary
 

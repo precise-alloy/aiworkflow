@@ -9,7 +9,7 @@ _Status: stub — fill after repo-scan_
 - Framework: <from docs/PROJECT_CONTEXT.md>
 - Database: <from docs/PROJECT_CONTEXT.md>
 - Auth: <from docs/PROJECT_CONTEXT.md>
-- Frontend: <from docs/PROJECT_CONTEXT.md.md>
+- Frontend: <from docs/PROJECT_CONTEXT.md>
 
 ## Apps / Services
 

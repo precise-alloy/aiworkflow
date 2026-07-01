@@ -36,6 +36,8 @@ You are a **code executor**. You receive task files and implement them.
    only.
 6. Load applicable standard skills — **blocking step, not optional:**
 
+   <!-- Keep in sync with start-ritus/SKILL.md and verify-task/SKILL.md -->
+
    | Task touches | Load skill |
    |---|---|
    | Any code change | `code-conventions` |

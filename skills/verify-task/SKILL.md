@@ -55,6 +55,8 @@ re-verify. Repeat until PASS.
 
 4. **Standards gates — load and check applicable standard skills:**
 
+   <!-- Keep in sync with execute-task/SKILL.md -->
+
    | Task touches | Load skill |
    |---|---|
    | Any code change | `code-conventions` |

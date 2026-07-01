@@ -47,7 +47,7 @@ strategy). If a framework-specific testing skill is installed, load it for concr
 
 ### Repeat
 
-Add the next test for the next behavior. One test at a time, one behavior at a time.
+Add the next test for the next behavior. One test per red-green-refactor cycle, one behavior at a time.
 
 ## For bug fixes
 
@@ -72,7 +72,7 @@ Add the next test for the next behavior. One test at a time, one behavior at a t
 1. Every new function/method has at least one test written BEFORE the implementation.
 2. Every bug fix has a regression test written BEFORE the fix.
 3. Tests must fail before the implementation proves they test something real.
-4. One test at a time — do not batch.
+4. One test per red-green-refactor cycle — do not batch.
 5. Run tests after every change — red, green, refactor, all require a test run.
 
 ## Next

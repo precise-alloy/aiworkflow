@@ -91,7 +91,7 @@ Grounding the review in live PR metadata is required before reviewing code.
 
 Parse the PR URL using the `## Remote API access` section → `### Azure DevOps PR URL parsing`.
 
-Fetch the PR details:
+Fetch the PR details (the `ado` subcommand targets Azure DevOps):
 
 ```bash
 bun run .ritus/scripts/remote-api.ts ado pr "<AZURE_DEVOPS_PR_URL>"

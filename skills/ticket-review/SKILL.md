@@ -215,7 +215,7 @@ For STANDARD and EPIC classifications, create a review document.
 
 Read `templates/review-document.md` in this skill's directory for the template format.
 
-## Step 5.5: User Review Gate
+## Step 5a: User Review Gate
 
 **Hard gate — present the review document to the user and wait for approval before proceeding.**
 
@@ -229,11 +229,11 @@ The review document is the overview that shapes all subsequent tasks. The user m
 Do NOT proceed to Step 6 until the user explicitly approves. If the user has feedback, update the review document
 and re-present for approval.
 
-## Step 5.6: Completeness Gate
+## Step 5b: Completeness Gate
 
 Hard gate — do not proceed to Step 6 until all checks pass.
 
-- [ ] User has approved the review document (Step 5.5)
+- [ ] User has approved the review document (Step 5a)
 - [ ] No `[NEEDS CLARIFICATION]` markers remain unresolved
 - [ ] All acceptance criteria are testable (can be verified by diff or command)
 - [ ] Success criteria have measurable outcomes (not "works correctly" — specify what "correct" means)
@@ -342,7 +342,7 @@ Migration: none
 - Triage before generating task files — no exceptions
 - TRIVIAL: implement directly, no task file
 - SIMPLE: 3-section task note (TASK + DONE WHEN + VERIFY)
-- Safety override is non-negotiable — always upgrade to STANDARD
+- Safety override (changes touching auth, billing, migrations, tenant isolation, infra, or shared contracts) is non-negotiable — always upgrade to STANDARD
 - No executor field in task files
 - STANDARD/EPIC: output file paths + execution plan in chat
 - No negative instructions in STEPS
@@ -377,7 +377,7 @@ until the user approves. The user may adjust task scope, reorder priorities, or 
 Once the user approves, create an **execution TODO list** from the execution plan before dispatching any subagents.
 This replaces the high-level planning TODO from ritus with a concrete per-task tracker:
 
-```
+```text
 - [ ] Implement task 001: <name> (execute-task subagent)
 - [ ] Verify task 001 (verify-task subagent)
 - [ ] Implement task 002: <name> (execute-task subagent)

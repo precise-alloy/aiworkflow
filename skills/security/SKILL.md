@@ -46,7 +46,7 @@ All checklist items are hard gates — must pass before reporting done.
 - All user-generated content rendered in frontend must be HTML-escaped.
 - No raw `innerHTML` with untrusted content.
 
-## SSRF prevention
+## SSRF (Server-Side Request Forgery) prevention
 
 - External URL fetching must validate against a configured allowlist.
 - No arbitrary URL fetch from user-supplied input without validation.

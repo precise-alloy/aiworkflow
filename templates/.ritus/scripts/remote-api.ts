@@ -110,8 +110,8 @@ async function runCheckEnv(): Promise<void> {
 async function main(): Promise<void> {
   await loadLocalEnv();
 
-  const [, , system, action, target, extra] = Bun.argv;
-  if (!system) {
+  const argsStartIndex = Bun.argv[1] === 'run' ? 3 : 2;
+  const [system, action, target, extra] = Bun.argv.slice(argsStartIndex);  if (!system) {
     printUsage();
     process.exit(2);
   }

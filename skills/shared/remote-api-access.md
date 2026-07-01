@@ -23,7 +23,7 @@ bun run .ritus/scripts/remote-api.ts jira changelog <KEY_OR_URL>            # ch
 bun run .ritus/scripts/remote-api.ts jira attachments <KEY_OR_URL>          # list attachments
 bun run .ritus/scripts/remote-api.ts jira attachment-download <KEY_OR_URL> <OUTPUT_DIR>  # download images
 
-# Azure DevOps
+# Azure DevOps (ADO)
 bun run .ritus/scripts/remote-api.ts ado pr <PR_URL>                        # PR metadata
 bun run .ritus/scripts/remote-api.ts ado issue <WORK_ITEM_URL_OR_ID>        # work item details
 bun run .ritus/scripts/remote-api.ts ado comments <WORK_ITEM_URL_OR_ID>     # work item comments

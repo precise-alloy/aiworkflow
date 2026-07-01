@@ -3,18 +3,10 @@ name: start-ritus
 description: Use when starting any conversation — establishes skill routing and golden rules for the workflow, requiring Skill tool invocation before ANY response including clarifying questions
 ---
 
-<SUBAGENT-STOP>
-If you were dispatched as a subagent to execute a specific task (verify-task, pr-review, or execute-task), skip this skill entirely.
-Run only the skill you were dispatched to execute.
-</SUBAGENT-STOP>
+> **Subagent guard:** If you were dispatched as a subagent to execute a specific task (verify-task, pr-review, or execute-task), skip this skill entirely.
+> Run only the skill you were dispatched to execute.
 
-<EXTREMELY-IMPORTANT>
-If you think there is even a 1% chance a skill might apply to what you are doing, you ABSOLUTELY MUST invoke the skill.
-
-IF A SKILL APPLIES TO YOUR TASK, YOU DO NOT HAVE A CHOICE. YOU MUST USE IT.
-
-This is not negotiable. This is not optional. You cannot rationalize your way out of this.
-</EXTREMELY-IMPORTANT>
+> **Mandatory skill check:** Before responding to any task — including clarifying questions — check whether an available skill applies. If a skill covers your task, you **must** invoke it via the Skill tool. Do not skip this check. This is not optional.
 
 # Ritus
 
@@ -67,6 +59,8 @@ ticket-review after the user approves the task files.
 
 ## Skill invocation
 
+> **Terminology:** "Invoke" = trigger a skill via the Skill tool (user or system action). "Load" = a skill reading another skill's content as a companion standard (skill-to-skill action).
+
 Before starting work, check which skill matches the user's intent by reading the available skill descriptions.
 Invoke the matching skill via the Skill tool. Each skill's `## Next` section defines what happens after — follow
 it, do not pre-plan the full chain.
@@ -84,16 +78,6 @@ Never use a skill name as the agent type — skill names are not agent types.
 | `pr-review` | sonnet | high | Adversarial; never apply fixes; use `origin/` refs; default to "Request changes" |
 
 Parallel vs sequential grouping is determined by `ticket-review`'s execution plan. When in doubt, run sequentially.
-
-## Standards (auto-loaded by execute-task and verify-task — not invoked directly)
-
-| Task touches | Auto-load skill |
-|-------------|----------------|
-| Any code change | `code-conventions` |
-| Auth, billing, migrations, tenant isolation, infra, shared contracts | `security` |
-| New service, endpoint, worker, or bug fix | `testing-policy` |
-| New business logic, new API endpoint, or bug fix | `tdd` |
-| STANDARD or EPIC task | `definition-of-done` |
 
 ## Red flags — stop and check for applicable skills
 
